@@ -1,69 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HLS Stream Player</title>
+    <title>TG @cric_stream</title>
+    <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
+
+    <!-- Shaka Player UI compiled library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/shaka-player.ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/controls.min.css">
+
     <style>
         body {
             margin: 0;
-            padding: 0;
             font-family: Arial, sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            background-color: black;
         }
-        #jwplayerDiv {
+
+        #live-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 6px 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 10;
+        }
+
+        #live-label a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1c1c1c;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            z-index: 1002;
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 0.5s;
+        }
+
+        .popup h2 {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .popup p {
+            margin-bottom: 20px;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .popup button {
+            background-color: #0088cc;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
             width: 100%;
-            height: 100vh;
+        }
+
+        .popup button:hover {
+            background-color: #006699;
+        }
+
+        .popup .close-btn {
+            background-color: #555;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #333;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
-    <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
 </head>
 <body>
-    <div id="jwplayerDiv"></div>
+    <!-- Shaka Player container -->
+    <div data-shaka-player-container style="max-width:100%;">
+        <video autoplay data-shaka-player id="video" style="width:100%;height:100%;background-color:black;"></video>
+        <div id="live-label">
+            <center><a href="https://t.me/cric_stream">CRIC <br> STREAM</a></center>
+        </div>
+    </div>
+
     <script>
-        // Define the HLS stream URL
-        const originalUrl = "https://dfwlive-v1-c1p3-sponsored.akamaized.net/Content/HLS.cps/Live/channel(WILLHD-3291.dfw.1080)/09.m3u8";
+        async function init() {
+            // Default video URL or use URL from query parameters
+            const defaultUrl = "https://cors-anywhere.ammoapps.com/https://dfwlive-v1-c1p3-sponsored.akamaized.net/Content/HLS.cps/Live/channel(WILLHD-3291.dfw.1080)/index.m3u8";
+            const urlParams = new URLSearchParams(window.location.search);
+            const manifestUri = urlParams.get('url') || defaultUrl;
 
-        // List of proxy options
-        const proxies = [
-            "https://cors-anywhere.ammoapps.com/",
-            "https://thingproxy.freeboard.io/fetch/",
-            "https://api.allorigins.win/raw?url="
-        ];
+            console.log("Attempting to load URL:", manifestUri);
 
-        // Attempt to play the stream with different proxies
-        function tryStream(proxyIndex) {
-            if (proxyIndex >= proxies.length) {
-                alert("Failed to load the stream after trying all proxies.");
-                return;
-            }
+            const video = document.getElementById('video');
+            const ui = video['ui'];
+            const controls = ui.getControls();
+            const player = controls.getPlayer();
 
-            const proxyUrl = proxies[proxyIndex];
-            const streamUrl = `${proxyUrl}${originalUrl}`;
+            // Configure Shaka Player UI
+            const config = {
+                controlPanelElements: ['play_pause', 'spacer', 'mute', 'quality', 'picture_in_picture', 'fullscreen'],
+            };
+            ui.configure(config);
 
-            // Initialize JWPlayer
-            const playerInstance = jwplayer("jwplayerDiv");
-            playerInstance.setup({
-                file: streamUrl,
-                width: "100%",
-                height: "100%",
-                aspectratio: "16:9",
-                autostart: true,
-                preload: "auto",
-                mute: false,
-                type: "hls"
+            // Player configuration
+            player.configure({
+                streaming: {
+                    useNativeHlsOnSafari: false,
+                },
             });
 
-            // Handle errors and try the next proxy
-            playerInstance.on('error', function() {
-                console.warn(`Failed with proxy: ${proxyUrl}`);
-                tryStream(proxyIndex + 1);
+            // Error event listener
+            player.addEventListener('error', (errorEvent) => {
+                console.error("Player Error:", errorEvent.detail);
+                alert("An error occurred while playing the video. Check the console for details.");
+            });
+
+            // Attempt to load the video
+            try {
+                await player.load(manifestUri);
+                console.log("The video has now been loaded!");
+                document.getElementById('live-label').style.display = 'block';
+            } catch (error) {
+                console.error("Error loading video:", error);
+                alert("Failed to load the video. Please check the URL or CORS proxy.");
+            }
+        }
+
+        document.addEventListener('shaka-ui-loaded', init);
+        document.addEventListener('shaka-ui-load-failed', () => {
+            console.error("Shaka Player UI library failed to load.");
+        });
+    </script>
+
+    <script>
+        // Restrict iframe embedding
+        if (window.top !== window.self) {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.innerHTML = '<div style="color: white; text-align: center; padding: 20px;">Embedding is not allowed.</div>';
             });
         }
 
-        // Start trying proxies
-        tryStream(0);
+        // Pop-up functionality
+        window.addEventListener("load", function() {
+            const popup = document.createElement("div");
+            popup.className = "popup";
+
+            popup.innerHTML = `
+              <h2>Support Us!</h2>
+              <p>Join our Telegram channel <br>Cric_Stream official for more updates.</p>
+              <button id="joinButton">Join Now</button>
+              <button id="closeButton" class="close-btn">Already Joined</button>
+            `;
+
+            document.body.appendChild(popup);
+
+            document.getElementById("joinButton").addEventListener("click", function() {
+                window.location.href = "https://t.me/cric_stream";
+            });
+
+            document.getElementById("closeButton").addEventListener("click", function() {
+                document.body.removeChild(popup);
+            });
+        });
     </script>
+
+    <!-- Telegram Join Button -->
+    <div style="background-color: #0074d9; text-align: center; padding: 10px;">
+        <a href="https://t.me/cric_stream" target="_blank">
+            <button id="joinTelegramButton" style="background-color: #ffcc00; padding: 10px; font-size: 16px; border-radius: 5px;">Join Telegram</button>
+        </a>
+    </div>
 </body>
 </html>
