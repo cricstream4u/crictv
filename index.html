@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JWPlayer HLS Stream</title>
+    <title>HLS Stream Player</title>
     <style>
         body {
             margin: 0;
@@ -12,7 +12,6 @@
             height: 100vh;
             overflow: hidden;
         }
-
         #jwplayerDiv {
             width: 100%;
             height: 100vh;
@@ -23,27 +22,48 @@
 <body>
     <div id="jwplayerDiv"></div>
     <script>
-        // HLS Stream URL
-        const hlsUrl = "https://cors-anywhere.ammoapps.com/https://dfwlive-v1-c1p3-sponsored.akamaized.net/Content/HLS.cps/Live/channel(WILLHD-3291.dfw.1080)/09.m3u8";
+        // Define the HLS stream URL
+        const originalUrl = "https://dfwlive-v1-c1p3-sponsored.akamaized.net/Content/HLS.cps/Live/channel(WILLHD-3291.dfw.1080)/09.m3u8";
 
-        // Initialize JWPlayer
-        const playerInstance = jwplayer("jwplayerDiv");
-        playerInstance.setup({
-            file: hlsUrl,
-            width: "100%",
-            height: "100%",
-            aspectratio: "16:9",
-            autostart: true,
-            preload: "auto",
-            mute: false,
-            type: "hls" // Specify HLS playback
-        });
+        // List of proxy options
+        const proxies = [
+            "https://cors-anywhere.ammoapps.com/",
+            "https://thingproxy.freeboard.io/fetch/",
+            "https://api.allorigins.win/raw?url="
+        ];
 
-        // Handle errors gracefully
-        playerInstance.on('error', function(error) {
-            console.error("Error loading HLS stream:", error.message);
-            alert("Failed to load the stream. Please check the URL or try again later.");
-        });
+        // Attempt to play the stream with different proxies
+        function tryStream(proxyIndex) {
+            if (proxyIndex >= proxies.length) {
+                alert("Failed to load the stream after trying all proxies.");
+                return;
+            }
+
+            const proxyUrl = proxies[proxyIndex];
+            const streamUrl = `${proxyUrl}${originalUrl}`;
+
+            // Initialize JWPlayer
+            const playerInstance = jwplayer("jwplayerDiv");
+            playerInstance.setup({
+                file: streamUrl,
+                width: "100%",
+                height: "100%",
+                aspectratio: "16:9",
+                autostart: true,
+                preload: "auto",
+                mute: false,
+                type: "hls"
+            });
+
+            // Handle errors and try the next proxy
+            playerInstance.on('error', function() {
+                console.warn(`Failed with proxy: ${proxyUrl}`);
+                tryStream(proxyIndex + 1);
+            });
+        }
+
+        // Start trying proxies
+        tryStream(0);
     </script>
 </body>
 </html>
