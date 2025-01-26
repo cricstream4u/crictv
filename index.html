@@ -22,26 +22,32 @@
     </div>
 
     <script>
-      // Replace with your video URL (with CORS proxy if needed)
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/"; 
+      // Use a CORS proxy if needed
+      const proxyUrl = "https://thingproxy.freeboard.io/fetch/"; 
       const streamUrl = "https://dfwlive-v1-c1p3-sponsored.akamaized.net/Content/HLS.cps/Live/channel(WILLHD-3291.dfw.1080)/index.m3u8";
       const manifestUri = proxyUrl + streamUrl;
 
       const video = document.getElementById('video');
       
+      // Check if Hls.js is supported in the browser
       if (Hls.isSupported()) {
         const hls = new Hls();
+        
+        // Load the stream
         hls.loadSource(manifestUri);
         hls.attachMedia(video);
+        
+        // Event listeners for success/error
         hls.on(Hls.Events.MANIFEST_PARSED, function() {
           console.log("Video loaded successfully!");
         });
+
         hls.on(Hls.Events.ERROR, function(event, data) {
           console.error("HLS.js error:", data);
           alert("Failed to load video.");
         });
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        // Safari
+        // For Safari, which supports HLS natively
         video.src = manifestUri;
       } else {
         console.error("Your browser does not support HLS.");
