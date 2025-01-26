@@ -1,92 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Stream</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/shaka-player.ui.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/controls.min.css">
-  <style>
-    #live-label {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      font-size: 10px;
-      color: white;
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 4px 8px;
-      border-radius: 5px;
-      display: none;
-      z-index: 10;
-    }
-
-    #live-label a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    #video {
-      width: 100%;
-      height: 100%;
-      background-color: black;
-    }
-  </style>
-</head>
-<body>
-  <div data-shaka-player-container style="max-width:100%">
-    <video autoplay id="video" style="width:100%; height:100%;"></video>
-    <div id="live-label">
-      <center><a href="https://t.me/cric_stream">CRIC <br> STREAM</a></center>
-    </div>
-  </div>
-
-  <script>
-    async function loadVideo(url) {
-      const video = document.getElementById('video');
-      const liveLabel = document.getElementById('live-label');
-
-      // HLS.js for m3u8 streams
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play();
-          liveLabel.style.display = 'block';
-        });
-        hls.on(Hls.Events.ERROR, (event, data) => {
-          console.error("HLS.js Error:", data);
-          alert("An error occurred with HLS.js.");
-        });
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TG @cric_stream</title>
+    <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
+    <!-- Shaka Player UI compiled library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/shaka-player.ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/controls.min.css">
+    <style>
+      #live-label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 10px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 4px 8px;
+        border-radius: 5px;
+        display: none;
+        z-index: 10;
       }
-      // For DASH (.mpd) with Shaka Player
-      else if (video.canPlayType('application/dash+xml')) {
-        const player = new shaka.Player(video);
 
-        player.addEventListener('error', (error) => {
-          console.error('Error loading video with Shaka Player:', error);
-          alert("Error loading video with Shaka Player.");
+      #live-label a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+       /* For screens larger than 768px (laptops, desktops) */
+      @media (min-width: 768px) {
+        #live-label {
+          font-size: 8px;
+          padding: 5px 10px;
+        }
+      }
+
+      /* For smaller screens (mobiles) */
+      @media (max-width: 767px) {
+        #live-label {
+          font-size: 5px;
+          padding: 2px 4px;
+          top: 5px;
+          left: 5px;
+        }
+      }
+
+       /* Popup styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1c1c1c;
+            border-radius: 20px; /* Rounded card style */
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            z-index: 1002;
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 0.5s;
+        }
+
+        .popup h2 {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .popup p {
+            margin-bottom: 20px;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .popup button {
+            background-color: #0088cc;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .popup button:hover {
+            background-color: #006699;
+        }
+
+        .popup .close-btn {
+            background-color: #555;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #333;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <div data-shaka-player-container style="max-width:100%">
+      <video autoplay data-shaka-player id="video" style="width:100%;height:100%; background-color:black;" poster=""></video>
+      <div id="live-label">
+        <center><a href="https://t.me/cric_stream">CRIC <br> STREAM</a></center>
+      </div>
+    </div>
+
+    <script>
+      async function init() {
+        // CORS proxy URL + stream URL
+        const defaultUrl = "https://cors-anywhere.herokuapp.com/https://dfwlive-v1-c1p3-sponsored.akamaized.net/Content/HLS.cps/Live/channel(WILLHD-3291.dfw.1080)/index.m3u8";
+        
+        // Get URL from query params, or use default one
+        const urlParams = new URLSearchParams(window.location.search);
+        const manifestUri = urlParams.get('url') || defaultUrl;
+
+        console.log("Attempting to load URL:", manifestUri);
+
+        const video = document.getElementById('video');
+        const ui = video['ui'];
+        const controls = ui.getControls();
+        const player = controls.getPlayer();
+
+        const config = {
+          controlPanelElements: ['play_pause', 'spacer', 'mute', 'quality', 'picture_in_picture', 'fullscreen'],
+        };
+
+        ui.configure(config);
+
+        player.configure({
+          streaming: {
+            useNativeHlsOnSafari: false,
+          },
+        });
+
+        player.addEventListener('error', (errorEvent) => {
+          console.error("Player Error:", errorEvent.detail);
+          alert("An error occurred while playing the video. Check the console for details.");
         });
 
         try {
-          await player.load(url);
-          liveLabel.style.display = 'block';
-          console.log("Video loaded successfully with Shaka Player.");
+          await player.load(manifestUri);
+          console.log("The video has now been loaded!");
+          document.getElementById('live-label').style.display = 'block';
         } catch (error) {
-          console.error("Shaka Player Error:", error);
-          alert("Error loading video with Shaka Player.");
+          console.error("Error loading video:", error);
+          alert("Failed to load the video. Please check the URL or CORS proxy.");
         }
-      } else {
-        alert("The browser doesn't support HLS or DASH.");
       }
-    }
 
-    window.addEventListener('load', () => {
-      const url = new URLSearchParams(window.location.search).get('url') || 'https://yourstreamurl.com/stream.m3u8';
-      loadVideo(url);
-    });
-  </script>
+      document.addEventListener('shaka-ui-loaded', init);
+      document.addEventListener('shaka-ui-load-failed', () => {
+        console.error("Shaka Player UI library failed to load.");
+      });
+    </script>
 
-</body>
+    <script>
+        // Restrict iframe embedding
+        if (window.top !== window.self) {
+            window.addEventListener('DOMContentLoaded', function() {
+                document.body.innerHTML = '<div id="message"></div>';
+            });
+        }
+
+        // Display a modern pop-up message when the page starts
+        window.addEventListener("load", function() {
+            // Create the popup element
+            var popup = document.createElement("div");
+            popup.className = "popup";
+
+            // Set the popup content
+            popup.innerHTML = `
+              <h2>Support Us!</h2>
+              <p>Join our Telegram channel <br>Cric_Stream official for more updates.</p>
+              <button id="joinButton">Join Now</button>
+              <button id="closeButton" class="close-btn">Already Joined</button>
+            `;
+
+            // Append the popup to the body
+            document.body.appendChild(popup);
+
+            // Add click event to the Join Now button
+            document.getElementById("joinButton").addEventListener("click", function() {
+                window.location.href = "https://t.me/cric_stream";
+            });
+
+            // Add click event to the Already Joined button to close the popup
+            document.getElementById("closeButton").addEventListener("click", function() {
+                document.body.removeChild(popup);
+            });
+        });
+    </script>
+    
+    <center>
+            <script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script>
+            <script type="text/javascript">sc_online_t(1703448, "Watching....", "#1d1d21");</script>
+            <br>
+            <noscript><a href="https://www.supercounters.com/"></a></noscript>
+        </center>
+
+        <div style="background-color: #0074d9; text-align: center; padding: 10px;">
+            <a href="https://t.me/cric_stream" target="_blank">
+                <button id="joinTelegramButton">Join Telegram</button>
+            </a>
+        </div>
+    </div>
+    
+  </body>
 </html>
