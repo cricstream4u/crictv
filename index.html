@@ -1,182 +1,120 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TG @cric_stream</title>
-    <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
-    <!-- Shaka Player UI compiled library -->
-    <script src="shaka-player.ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="controls.min.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tg- @cric_stream</title>
+    <link rel="shortcut icon" href="#">
+    <meta name="robots" content="noindex, nofollow, noarchive">
     <style>
-      #live-label {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        font-size: 10px;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.4);
-        padding: 4px 8px;
-        border-radius: 5px;
-        display: none;
-        z-index: 10;
-      }
-
-      #live-label a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-      }
-
-       /* For screens larger than 768px (laptops, desktops) */
-      @media (min-width: 768px) {
-        #live-label {
-          font-size: 8px;
-          padding: 5px 10px;
-        }
-      }
-
-      /* For smaller screens (mobiles) */
-      @media (max-width: 767px) {
-        #live-label {
-          font-size: 5px;
-          padding: 2px 4px;
-          top: 5px;
-          left: 5px;
-        }
-      }
-
-       /* Popup styles */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #1c1c1c;
-            border-radius: 20px; /* Rounded card style */
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-            z-index: 1002;
-            width: 90%;
-            max-width: 400px;
-            animation: fadeIn 0.5s;
-        }
-
-        .popup h2 {
-            color: #ffcc00;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-
-        .popup p {
-            margin-bottom: 20px;
-            color: #ccc;
-            font-size: 16px;
-        }
-
-        .popup button {
-            background-color: #0088cc;
-            color: #fff;
-            border: none;
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
             padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-bottom: 10px;
-            width: 100%;
+            background-color: #000;
+            color: #fff;
         }
-
-        .popup button:hover {
+        .file-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 10px;
+        }
+        .directory-item, .file-item {
+            margin: 10px;
+            text-align: center;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform .3s ease, box-shadow .3s ease;
+            background-color: #1a1a1a;
+            padding: 10px;
+            width: calc(14.28% - 20px);
+            box-sizing: border-box;
+        }
+        .directory-item img, .file-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: transform .3s ease;
+        }
+        .directory-item a, .file-item a {
+            text-decoration: none;
+            color: #00bfff;
+            font-weight: 700;
+            display: block;
+            margin-top: 5px;
+            transition: color .3s ease;
+        }
+        .directory-item:hover, .file-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, .3);
+        }
+        .directory-item img:hover, .file-item img:hover {
+            transform: scale(1.1);
+        }
+        .directory-item a:hover, .file-item a:hover {
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+        .telegram-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #0088cc;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .telegram-toggle:hover {
             background-color: #006699;
         }
-
-        .popup .close-btn {
-            background-color: #555;
-        }
-
-        .popup .close-btn:hover {
-            background-color: #333;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+        @media (max-width: 1024px) {
+            .directory-item, .file-item {
+                width: calc(25% - 20px);
             }
-            to {
-                opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .directory-item, .file-item {
+                width: calc(33.333% - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .directory-item, .file-item {
+                width: calc(50% - 20px);
+                margin: 5px;
+                padding: 5px;
+            }
+            .telegram-toggle {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
             }
         }
     </style>
-  </head>
-  <body>
-    <div data-shaka-player-container style="max-width:100%">
-      <video autoplay data-shaka-player id="video" style="width:100%;height:100%; background-color:black;" poster=""></video>
-      <div id="live-label">
-        <center><a href="https://t.me/cric_stream">CRIC <br> STREAM</a></center>
-      </div>
-    </div>
-
-    <script>
-      async function init() {
-        const defaultUrl = "https://amg01269-amg01269c1-willowtv-us-5479.playouts.now.amagi.tv/playlist/amg01269-willowtvfast-willowplus-willowtvus/playlist.m3u8";
-        const urlParams = new URLSearchParams(window.location.search);
-        const manifestUri = urlParams.get('url') || defaultUrl;
-
-        console.log("Attempting to load URL:", manifestUri);
-
-        const video = document.getElementById('video');
-        const ui = video['ui'];
-        const controls = ui.getControls();
-        const player = controls.getPlayer();
-
-        const config = {
-          controlPanelElements: ['play_pause', 'spacer', 'mute', 'quality', 'picture_in_picture', 'fullscreen'],
-        };
-
-        ui.configure(config);
-
-        player.configure({
-          streaming: {
-            useNativeHlsOnSafari: false,
-          },
-        });
-
-        player.addEventListener('error', (errorEvent) => {
-          console.error("Player Error:", errorEvent.detail);
-          
-        });
-
-        try {
-          await player.load(manifestUri);
-          console.log("The video has now been loaded!");
-          document.getElementById('live-label').style.display = 'block';
-        } catch (error) {
-          console.error("Error loading video:", error);
-          
+    <!-- Disable DevTools -->
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="Drmlive_Bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+    <script type="text/javascript">
+        function onTelegramAuth(user) {
+            alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
         }
-      }
-
-      document.addEventListener('shaka-ui-loaded', init);
-      document.addEventListener('shaka-ui-load-failed', () => {
-        console.error("Shaka Player UI library failed to load.");
-      });
     </script>
-
-    
-    
-    <center>
-            <script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script>
-            <script type="text/javascript">sc_online_t(1703448, "Watching....", "#1d1d21");</script>
-            <br>
-            <noscript><a href="https://www.supercounters.com/"></a></noscript>
-        </center>
-
-        <div style="background-color: #0074d9; text-align: center; padding: 10px;">
-            <a href="https://t.me/cric_stream" target="_blank">
-                <button id="joinTelegramButton">Join Telegram</button>
-            </a>
-        </div>
-    </div>
-    
-  </body>
+</head>
+<body>
+    <a href="https://cric_stream" class="telegram-toggle">Join Telegram</a>
+    <h1>Drmlive</h1>
+    <div class="file-container">
+        <div class='directory-item'><a href='https://live.drmlive.in/sliv/'><img src='Sliv.png' alt='Sonyliv'></a><a href='https://live.drmlive.in/sliv/'>Sonyliv</a></div><div class='directory-item'><a href='https://live.drmlive.in/zee5/'><img src='zee5.png' alt='Zee5'></a><a href='https://live.drmlive.in/zee5/'>Zee5</a></div><div class='directory-item'><a href='https://live.drmlive.in/jiotv/'><img src='jiotv.ico' alt='JioTV Web'></a><a href='https://live.drmlive.in/jiotv/'>JioTV Web</a></div><div class='directory-item'><a href='https://live.drmlive.in/yupptvpremium/'><img src='yupptv.jpg' alt='YuppTV Premium'></a><a href='https://live.drmlive.in/yupptvpremium/'>YuppTV Premium</a></div><div class='directory-item'><a href='https://live.drmlive.in/yupptv/'><img src='yupptv.jpg' alt='YuppTV FTA'></a><a href='https://live.drmlive.in/yupptv/'>YuppTV FTA</a></div><div class='directory-item'><a href='https://live.drmlive.in/fancode/'><img src='fancode.png' alt='Fancode Live Events'></a><a href='https://live.drmlive.in/fancode/'>Fancode Live Events</a></div><div class='directory-item'><a href='https://live.drmlive.in/sliv-events/'><img src='Sliv.png' alt='Sonyliv Live Events'></a><a href='https://live.drmlive.in/sliv-events/'>Sonyliv Live Events</a></div><div class='directory-item'><a href='https://live.drmlive.in/DrmPlayer/'><img src='Player.png' alt='Drm Player'></a><a href='https://live.drmlive.in/DrmPlayer/'>Drm Player</a></div><div class='directory-item'><a href='https://live.drmlive.in/voot/'><img src='Jio-Cinema.png' alt='Jio Cinema'></a><a href='https://live.drmlive.in/voot/'>Jio Cinema</a></div><div class='directory-item'><a href='https://live.drmlive.in/sports/'><img src='sports.jpg' alt='Sports'></a><a href='https://live.drmlive.in/sports/'>Sports</a></div><div class='directory-item'><a href='https://live.drmlive.in/australia/'><img src='australia.png' alt='Australia Only'></a><a href='https://live.drmlive.in/australia/'>Australia Only</a></div><div class='directory-item'><a href='https://live.drmlive.in/info/'><img src='playlist.webp' alt='Playlist Info'></a><a href='https://live.drmlive.in/info/'>Playlist Info</a></div>    </div>
+</body>
 </html>
