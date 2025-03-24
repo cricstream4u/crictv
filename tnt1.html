@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TG-@cric_stream</title>
+     <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
+    <!-- Shaka Player UI compiled library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/shaka-player.ui.min.js"></script>
+    <!-- Shaka Player UI compiled library default CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.12.5/controls.min.css">
+    <!-- Chromecast SDK (optional for Chromecast support) -->
+    <style>
+      #live-label {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 10px; /* Default font size for larger screens */
+        color: white;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 4px 8px;
+        border-radius: 5px;
+        display: none;
+        z-index: 10;
+      }
+
+      #live-label a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      /* For screens larger than 768px (laptops, desktops) */
+      @media (min-width: 768px) {
+        #live-label {
+          font-size: 8px;
+          padding: 5px 10px;
+        }
+      }
+
+      /* For smaller screens (mobiles) */
+      @media (max-width: 767px) {
+        #live-label {
+          font-size: 5px;
+          padding: 2px 4px;
+          top: 3px;
+          left: 3px;
+        }
+      }
+
+      /* Popup styles */
+        
+
+        
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <div data-shaka-player-container style="max-width:100%">
+      <video autoplay data-shaka-player id="video" style="width:100%;height:100%; background-color:black;"></video>
+      <div id="live-label">
+        <center><a href="https://t.me/+ESR7kTRkAHI1NTI1">CRIC <br> STREAM</a></center>
+      </div>
+    </div>
+
+    <script>
+      const manifestUri = 'https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/clients/dash/enc/wf8usag51e/out/v1/bd3b0c314fff4bb1ab4693358f3cd2d3/cenc.mpd';
+
+      async function init() {
+        const video = document.getElementById('video');
+        const ui = video['ui'];
+        const controls = ui.getControls();
+        const player = controls.getPlayer();
+
+        // DRM Configuration with ClearKey
+        const clearKeyConfig = {
+          'ae26845bd33038a9c0774a0981007294': '63ac662dde310cfb4cc6f9b43b34196d'
+        };
+
+        // Shaka Player UI Configuration (Remove progress and add "Live" label)
+        const config = {
+          'controlPanelElements': ['play_pause', 'spacer', 'mute', 'quality','language','picture_in_picture', 'fullscreen']
+        };
+
+        ui.configure(config);
+
+        // Configure DRM
+        player.configure({
+          drm: {
+            clearKeys: clearKeyConfig
+          }
+        });
+
+        // Attach player and UI to the window to make it easy to access in the JS console.
+        window.player = player;
+        window.ui = ui;
+
+        // Listen for error events.
+        player.addEventListener('error', onPlayerErrorEvent);
+        controls.addEventListener('error', onUIErrorEvent);
+
+        // Show "Live" label when the stream is live
+        const liveLabel = document.getElementById('live-label');
+        liveLabel.style.display = 'block';
+
+        // Try to load the manifest.
+        try {
+          await player.load(manifestUri);
+          console.log('The video has now been loaded!');
+        } catch (error) {
+          onPlayerError(error);
+        }
+
+        // Detect when controls are visible and show/hide the live label
+        const controlPanel = document.querySelector('.shaka-controls');
+        
+        controlPanel.addEventListener('mouseenter', () => {
+          liveLabel.style.display = 'block';  // Show the "Live" label when controls are visible
+        });
+
+        controlPanel.addEventListener('mouseleave', () => {
+          liveLabel.style.display = 'none';  // Hide the "Live" label when controls are hidden
+        });
+      }
+
+      function onPlayerErrorEvent(errorEvent) {
+        // Extract the shaka.util.Error object from the event.
+        onPlayerError(errorEvent.detail);
+      }
+
+      function onPlayerError(error) {
+        // Handle player error
+        console.error('Error code', error.code, 'object', error);
+      }
+
+      function onUIErrorEvent(errorEvent) {
+        // Extract the shaka.util.Error object from the event.
+        onPlayerError(errorEvent.detail);
+      }
+
+      function initFailed(errorEvent) {
+        console.error('Unable to load the UI library!');
+      }
+
+      // Listen to the custom shaka-ui-loaded event, to wait until the UI is loaded.
+      document.addEventListener('shaka-ui-loaded', init);
+      document.addEventListener('shaka-ui-load-failed', initFailed);
+
+     
+    </script>
+
+
+    
+     <center>
+           <!-- BEGIN: Powered by Supercounters.com -->
+        <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><script type="text/javascript">sc_online_t(1707487,"Users Online","170ddb");</script><br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
+        </center>
+        <!-- END: Powered by Supercounters.com -->
+
+        </center>
+
+        <div style="background-color: #0074d9; text-align: center; padding: 10px;">
+            <a href="https://t.me/cric_stream" target="_blank">
+                <button id="joinTelegramButton">Join Telegram</button>
+            </a>
+        </div>
+    </div>
+    
+  </body>
+</html>
