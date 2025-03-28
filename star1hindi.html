@@ -159,43 +159,60 @@
         }
    
     </style>
-    <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
-</head>
-<body>
-    <div id="jwplayerDiv"></div>
-   <script>
-    // Function to get URL query parameters
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
+    </script>
+<script type="text/javascript" src="//www.highperformanceformat.com/f9746dfef85e6ec5c7141e4723441071/invoke.js"></script>
 
-    // Retrieve the 'file' parameter from the URL, or use the default URL if none is provided
-    const hlsStreamUrl = getQueryParam("file") || "https://myctxa.temycssme.wiki/720p.m3u8";
+<div style="text-align: center;"><br></div>
+<div id="myHeader">
+<div id="http">
+<script src="//content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
 
-    // Initialize JW Player
-    const playerInstance = jwplayer("jwplayerDiv");
+<div id="player">
+</div>
+<script type="text/javascript">
+jwplayer("player").resize(480, 270);
+    jwplayer('player').setup({
+        file: 'https://001.fclplayer.online/live/csstream2/playlist.m3u8?id=1002&pk=35ad947263272a05bec984568d828a525317990c7c9b2242b669484450f5b678',
 
-    // Configure the player with the HLS stream from URL parameter or default stream
-    playerInstance.setup({
-        file: hlsStreamUrl,
-        width: "100%",
-        height: "100%",
-        aspectratio: "16:9",
-        autostart: true,
-        mute: false, 
-        type: "hls", // Ensures HLS compatibility
-        preload: "auto", // Preload stream for faster playback
-        cast: {
-            appid: "CC1AD845" // Chromecast App ID (optional)
-        }
-    });
-
-    // Optional: Handle player errors gracefully
-    playerInstance.on('error', function(error) {
-        console.error("Error loading stream:", error.message);
+playbackRateControls: [0.75, 1, 1.25, 1.5],
+        title: 'Esports Live ',
+        width: '100%',
+        aspectratio: '16:9',
+        mute: false,
+        repeat: 'true',
+        autostart:true,
+        primary: 'html5',
+        type: 'm38u',
+        setFullscreen: true,
+controls: true,
+showCode: true,
+responsive: true,
+skin: {
+  name: "glow",
+       active: "red",
+       inactive: "",
+       Background: ""
+  }
     });
 </script>
+</div>
+</div>
+<script>
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
+
+
 
        <center>
             <!-- BEGIN: Powered by Supercounters.com -->
