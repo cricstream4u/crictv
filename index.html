@@ -17,6 +17,59 @@
             background-color: #000;
             color: #fff;
         }
+        /* Menu Styling */
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            
+            width: 100%;
+            z-index: 10;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        /* Neon Glow Effect */
+        .menu a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(0, 255, 255, 0.7);
+            animation: neon-border 3s infinite alternate;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        @keyframes neon-border {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 1), 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6);
+                background-color: rgba(0, 255, 255, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
+                background-color: rgba(255, 0, 255, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 0, 1), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.6);
+                background-color: rgba(255, 255, 0, 0.7);
+            }
+        }
+        
         .file-container {
             display: flex;
             flex-wrap: wrap;
@@ -147,6 +200,7 @@
     <a href="https://t.me/cric_stream" class="telegram-toggle">Join Telegram</a>
     <h1>CricTv</h1>
     <div class="file-container">
+        
 
         
 
