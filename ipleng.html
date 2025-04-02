@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Popunder ads -->
+    <!-- Popunder ads 
     <script type='text/javascript' src='//carryglanced.com/94/cb/a4/94cba44db07324ce70291446a18959c8.js'></script>
-    
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
     <title>TG-@cric_stream</title>
     <style>
-       
         body {
-            margin: 0px;
+            margin: 0;
             padding-top: 5px;
             font-family: Arial, sans-serif;
-            width: 100%
+            width: 100%;
         }
-
-       
         #jwplayerDiv {
             width: 100%;
             height: 100%;
-            
+        }
+        /* Disable text selection */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .sticky-footer {
@@ -32,209 +35,66 @@
            color: white;
            text-align: center;
            padding: 0px;
-        }
-
-           /* Popup styles */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #1c1c1c;
-            border-radius: 20px; /* Rounded card style */
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-            z-index: 1002;
-            width: 90%;
-            max-width: 400px;
-            animation: fadeIn 0.5s;
-        }
-
-        .popup h2 {
-            color: #ffcc00;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-
-        .popup p {
-            margin-bottom: 20px;
-            color: #ccc;
-            font-size: 16px;
-        }
-
-        .popup button {
-            background-color: #0088cc;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .popup button:hover {
-            background-color: #006699;
-        }
-
-        .popup .close-btn {
-            background-color: #555;
-        }
-
-        .popup .close-btn:hover {
-            background-color: #333;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .neon-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 5px;
-            padding-bottom:25px;
-            margin: 10px;
-            margin-top: 25px;
-            background-color: #2f2f2f;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #00ff99;
-            transition: all 0.3s ease-in-out;
-            animation: neonBorder 2s infinite alternate;
-        }
-
-        .neon-container h1 {
-            color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-
-        .neon-container a {
-            color: #00ff99;
-            font-size: 1.5rem;
-            text-decoration: none;
-            font-weight: bold;
-            border: 2px solid #00ff99;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .neon-container a:hover {
-            background-color: #00ff99;
-            color: #121212;
-            box-shadow: 0 0 20px #00ff99, 0 0 40px #00ff99;
-        }
-
-        /* Neon Border Animation */
-        @keyframes neonBorder {
-            0% {
-                border-color: #00ff99;
-            }
-            25% {
-                border-color: #ff007f;
-            }
-            50% {
-                border-color: #007fff;
-            }
-            75% {
-                border-color: #ffbf00;
-            }
-            100% {
-                border-color: #00ff99;
-            }
-        }
-
-       
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .neon-container h1 {
-                font-size: 2rem;
-            }
-
-            .neon-container a {
-                font-size: 1.2rem;
-                padding: 8px 16px;
-            }
-        }
-   
+        } 
     </style>
-    <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
 </head>
 <body>
-    <div id="jwplayerDiv"></div>
-   <script>
-    // Function to get URL query parameters
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
+    <div id="player"></div>
+    <script src="//content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
+    <script>
+        jwplayer("player").setup({
+            file: 'https://001.fclplayer.online/live/csstream2/playlist.m3u8?id=1002&pk=35ad947263272a05bec984568d828a525317990c7c9b2242b669484450f5b678',
+            width: '100%',
+            aspectratio: '16:9',
+            autostart: true,
+            primary: 'html5',
+            controls: true,
+            responsive: true
+        });
+    </script>
+    <script>
+        // Disable right-click
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+        
+        // Disable keyboard shortcuts for DevTools
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")) {
+                e.preventDefault();
+            }
+        });
+        
+        // Detect DevTools open
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                alert("Developer tools are disabled!");
+                window.location.reload();
+            }
+        }, 1000);
+    </script>
 
-    // Retrieve the 'file' parameter from the URL, or use the default URL if none is provided
-    const hlsStreamUrl = getQueryParam("file") || "https://criccoder264.pages.dev/fox.m3u8";
 
-    // Initialize JW Player
-    const playerInstance = jwplayer("jwplayerDiv");
+    <center>
+      <!-- BEGIN: Powered by Supercounters.com -->
+      <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><script type="text/javascript">sc_online_t(1707487,"Users Online","170ddb");</script><br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
+      </center>
+      <!-- END: Powered by Supercounters.com -->
+    </center>
 
-    // Configure the player with the HLS stream from URL parameter or default stream
-    playerInstance.setup({
-        file: hlsStreamUrl,
-        width: "100%",
-        height: "100%",
-        aspectratio: "16:9",
-        autostart: true,
-        mute: false, 
-        type: "hls", // Ensures HLS compatibility
-        preload: "auto", // Preload stream for faster playback
-        cast: {
-            appid: "CC1AD845" // Chromecast App ID (optional)
-        }
-    });
-
-    // Optional: Handle player errors gracefully
-    playerInstance.on('error', function(error) {
-        console.error("Error loading stream:", error.message);
-    });
-</script>
-
-       <center>
-            <!-- BEGIN: Powered by Supercounters.com -->
-            <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><script type="text/javascript">sc_online_t(1707487,"Users Online","170ddb");</script><br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
-            </center>
-            <!-- END: Powered by Supercounters.com -->
-
-            
-        </center>
-
-        <div style="background-color: #0074d9; text-align: center; padding: 10px;">
-            <a href="https://t.me/cric_stream" target="_blank">
-                <button id="joinTelegramButton">Join Telegram</button>
-            </a>
-        </div>
+    <div style="background-color: #0074d9; text-align: center; padding: 10px;">
+      <a href="https://t.me/cric_stream" target="_blank">
+        <button id="joinTelegramButton">Join Telegram</button>
+      </a>
     </div>
 
-
-    <!-- <div class="neon-container">
-        <div>
-            <h1>Share With Your Friends & Support Us!</h1>
-            <a href="https://t.me/cric_stream" target="_blank">Click to Connect</a>
-        </div>
-    </div> -->
-
-<!--Adsterra-->
+    <!--Adsterra
     <script type='text/javascript' src='//carryglanced.com/9a/ef/51/9aef51d03afe6b1df2bbff95ef6e2364.js'></script>
-
+-->
+	<script async="async" data-cfasync="false" src="//carryglanced.com/2346ffc02acfb9eb4451708a5df9f609/invoke.js"></script>
+<div id="container-2346ffc02acfb9eb4451708a5df9f609"></div>
         <!-- 720*90 banner ads-->
    
     <div class="sticky-footer">
@@ -249,7 +109,6 @@
 </script>
 <script type="text/javascript" src="//carryglanced.com/d57705b1f5d0f7abbb19cdb5dfe61249/invoke.js"></script>
     </div>
-    
     
 </body>
 </html>
