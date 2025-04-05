@@ -158,14 +158,7 @@
             }
         }
     </style>
-    <!-- Disable DevTools -->
-    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
-    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="Drmlive_Bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
-    <script type="text/javascript">
-        function onTelegramAuth(user) {
-            alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-        }
-    </script>
+    
 </head>
 
     <script data-cfasync="false" type="text/javascript" id="clever-core">
@@ -302,6 +295,30 @@
         
       
            </div>
+
+    <script>
+        // Disable right-click
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+        
+        // Disable keyboard shortcuts for DevTools
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")) {
+                e.preventDefault();
+            }
+        });
+        
+        // Detect DevTools open
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                alert("Developer tools are disabled!");
+                window.location.reload();
+            }
+        }, 1000);
+    </script>
 
     <!--Adsterra-->
     <script type='text/javascript' src='//carryglanced.com/9a/ef/51/9aef51d03afe6b1df2bbff95ef6e2364.js'></script>
