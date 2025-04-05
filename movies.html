@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Website</title>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        
+        /* Menu Styling */
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        /* Neon Glow Effect */
+        .menu a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(0, 255, 255, 0.7);
+            animation: neon-border 3s infinite alternate;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        @keyframes neon-border {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 1), 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6);
+                background-color: rgba(0, 255, 255, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
+                background-color: rgba(255, 0, 255, 0.7);
+            }
+
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 0, 1), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.6);
+                background-color: rgba(255, 255, 0, 0.7);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+
+        .telegram-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #0088cc;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .telegram-toggle:hover {
+            background-color: #006699;
+        }
+        
+
+        /* Search Bar Styling */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .search-box {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .latest-released h3 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 30px;
+            color: #fff;
+            background-color: #ff5733;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .movie-grid {
+            margin-top:5px;
+            display: grid;
+            gap: 20px;
+            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .movie-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: auto;
+        }
+        .movie-card:hover img {
+            transform: scale(1.1); /* Zoom effect on image when the card is hovered */
+        }
+
+        .watch-btn {
+            padding: 10px 20px;
+            background-color: #ff5733;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.1em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .watch-btn:hover {
+            background-color: #e04e1f;
+        }
+
+
+        /* Mobile View (2 posts per row) */
+       @media (max-width: 767px) {
+            .movie-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+
+        /* Tablet View (3 posts per row) */
+        @media (min-width: 768px) {
+            .movie-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Laptop View (5 posts per row) */
+        @media (min-width: 1024px) {
+            body{
+                margin-left:10%;
+                margin-right:10%;
+            }
+            .movie-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a href="https://t.me/cric_stream" class="telegram-toggle">Join Telegram</a>
+        <h1>CineArena.live</h1>
+    </div>
+    
+    <!-- Menu Section -->
+    <div class="menu">
+        <a href="https://cinearena.live/">Sports</a>
+        <a href="#">Music</a>
+        <a href="#">Movies</a>
+    </div>
+
+    <!--search bar-->
+    <div class="search-container">
+        <input type="text" id="search" class="search-box" placeholder="Search movies...">
+    </div>
+
+    <!-- latest movies-->
+    <section class="latest-released">
+        <h3>Latest Released Movie</h3>
+        <div class="movie-grid" id="movieGrid">
+            <div class="movie-card" data-title="Movie Title 2">
+              <a href="">
+                <img src="download (6).jpeg" alt="Movie 2">
+                <h4>The Deplomat (2025) Full Movie 1080p</h4>
+              </a>
+              <a href="">
+                <button class="watch-btn">Watch Now</button>
+              </a>
+            </div>
+          
+            <div class="movie-card" data-title="Movie Title 1">
+              <a href="">
+                <img src="download (7).jpeg" alt="Movie 1">
+                <h4>Sikandar (2025) Full Movie 1080p</h4>
+              </a>
+              <a href="">
+                <button class="watch-btn">Watch Now</button>
+              </a>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('search').addEventListener('input', function () {
+            let searchValue = this.value.toLowerCase();
+            let movies = document.querySelectorAll('.movie-card');
+
+            movies.forEach(movie => {
+                let title = movie.getAttribute('data-title').toLowerCase();
+                if (title.includes(searchValue)) {
+                    movie.style.display = "flex";
+                } else {
+                    movie.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+          </html>
