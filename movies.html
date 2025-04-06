@@ -215,6 +215,32 @@
             background-color: #e04e1f;
         }
 
+	@media (max-width: 1024px) {
+            .directory-item, .file-item {
+                width: calc(25% - 20px);
+            }
+        }
+        @media (max-width: 768px) {
+            .directory-item, .file-item {
+                width: calc(33.333% - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .directory-item, .file-item {
+                width: calc(50% - 20px);
+                margin: 5px;
+                padding: 5px;
+            }
+            .telegram-toggle {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+	}
+
 
         /* Mobile View (2 posts per row) */
        @media (max-width: 767px) {
