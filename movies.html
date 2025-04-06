@@ -73,11 +73,62 @@
             }
         }
 
+        /* Page Styling */
+        .file-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .directory-item, .file-item {
+            margin: 10px;
+            text-align: center;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform .3s ease, box-shadow .3s ease;
+            background-color: #1a1a1a;
+            padding: 10px;
+            width: calc(14.28% - 20px);
+            box-sizing: border-box;
+        }
+
+        .directory-item img, .file-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: transform .3s ease;
+        }
+
+        .directory-item a, .file-item a {
+            text-decoration: none;
+            color: #00bfff;
+            font-weight: 700;
+            display: block;
+            margin-top: 5px;
+            transition: color .3s ease;
+        }
+
+        .directory-item:hover, .file-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, .3);
+        }
+
+        .directory-item img:hover, .file-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .directory-item a:hover, .file-item a:hover {
+            color: #fff;
+        }
+
         h1 {
             text-align: center;
             color: #00bfff;
             margin-bottom: 20px;
-        }
+	}
 
         .telegram-toggle {
             position: fixed;
