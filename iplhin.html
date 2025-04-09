@@ -197,6 +197,30 @@
     });
 </script>
 
+    <script>
+        // Disable right-click
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+        
+        // Disable keyboard shortcuts for DevTools
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")) {
+                e.preventDefault();
+            }
+        });
+        
+        // Detect DevTools open
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                alert("Developer tools are disabled!");
+                window.location.reload();
+            }
+        }, 1000);
+    </script>
+
        <center>
             <!-- BEGIN: Powered by Supercounters.com -->
             <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><script type="text/javascript">sc_online_t(1707487,"Users Online","170ddb");</script><br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
