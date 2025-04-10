@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
+    <title>TG-@cric_stream</title>
+    <style>
+        body {
+            margin: 0px;
+            padding-top: 5px;
+            font-family: Arial, sans-serif;
+            width: 100%;
+        }
+
+        #jwplayerDiv {
+            width: 100%;
+            height: 100%;
+        }
+
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #fff;
+            text-align: center;
+            padding: 0px;
+        }
+
+        #joinTelegramButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #25A5E9;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #joinTelegramButton:hover {
+            background-color: #198dc7;
+        }
+    </style>
+    <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
+</head>
+<body>
+    <div id="jwplayerDiv"></div>
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const hlsStreamUrl = getQueryParam("file");
+
+        if (!hlsStreamUrl) {
+            alert("No HLS stream URL provided. Please add a 'file' parameter to the URL.");
+        } else {
+            const playerInstance = jwplayer("jwplayerDiv");
+
+            playerInstance.setup({
+                file: hlsStreamUrl,
+                width: "100%",
+                height: "100%",
+                aspectratio: "16:9",
+                autostart: true,
+                mute: false,
+                type: "hls",
+                preload: "auto",
+                cast: {
+                    appid: "CC1AD845"
+                }
+            });
+
+            playerInstance.on('error', function(error) {
+                console.error("Error loading stream:", error.message);
+            });
+        }
+    </script>
+
+    <script>
+        // Disable right-click and hotkeys
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener("keydown", function(e) {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")
+            ) {
+                e.preventDefault();
+            }
+        });
+
+        // DevTools Detection - Attempt to close tab
+        (function() {
+            let devtoolsOpen = false;
+            const element = new Image();
+
+            Object.defineProperty(element, 'id', {
+                get: function () {
+                    devtoolsOpen = true;
+                    throw new Error("DevTools detected");
+                }
+            });
+
+            setInterval(function () {
+                devtoolsOpen = false;
+                console.dir(element);
+                if (devtoolsOpen) {
+                    alert("Developer tools are not allowed!");
+                    window.open('', '_self').close(); // Attempts to close the tab
+                }
+            }, 1000);
+        })();
+    </script>
+
+    <center>
+        <script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script>
+        <script type="text/javascript">
+            sc_online_t(1707487, "Users Online", "170ddb");
+        </script>
+        <br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
+    </center>
+
+    <div style="background-color: #0074d9; text-align: center; padding: 10px;">
+        <a href="https://t.me/cric_stream" target="_blank">
+            <button id="joinTelegramButton">Join Telegram</button>
+        </a>
+    </div>
+
+    <!-- Stick ads bottom -->
+    <div class="sticky-footer">
+        <script type="text/javascript">
+            atOptions = {
+                'key': 'd57705b1f5d0f7abbb19cdb5dfe61249',
+                'format': 'iframe',
+                'height': 90,
+                'width': 728,
+                'params': {}
+            };
+        </script>
+        <script type="text/javascript" src="//carryglanced.com/d57705b1f5d0f7abbb19cdb5dfe61249/invoke.js"></script>
+    </div>
+</body>
+</html>
