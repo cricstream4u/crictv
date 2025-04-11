@@ -170,33 +170,7 @@
     
 </head>
 
-    <script data-cfasync="false" type="text/javascript" id="clever-core">
-/* <![CDATA[ */
-    (function (document, window) {
-        var a, c = document.createElement("script"), f = window.frameElement;
-
-        c.id = "CleverCoreLoader91139";
-        c.src = "https://cdn-adtech.com/3d9e314d1aec5d4681f05e8f58c75e67.js";
-
-        c.async = !0;
-        c.type = "text/javascript";
-        c.setAttribute("data-target", window.name || (f && f.getAttribute("id")));
-        c.setAttribute("data-callback", "put-your-callback-function-here");
-        c.setAttribute("data-callback-url-click", "put-your-click-macro-here");
-        c.setAttribute("data-callback-url-view", "put-your-view-macro-here");
-        
-
-        try {
-            a = parent.document.getElementsByTagName("script")[0] || document.getElementsByTagName("script")[0];
-        } catch (e) {
-            a = !1;
-        }
-
-        a  (a = document.getElementsByTagName("head")[0]  document.getElementsByTagName("body")[0]);
-        a.parentNode.insertBefore(c, a);
-    })(document, window);
-/* ]]> */
-    </script>
+    
     
 <body>
     <a href="https://t.me/cric_stream" class="telegram-toggle">Join Telegram</a>
@@ -234,27 +208,42 @@
 	<br>
 
     <script>
-        // Disable right-click
+        // Disable right-click and hotkeys
         document.addEventListener("contextmenu", function(e) {
             e.preventDefault();
         });
-        
-        // Disable keyboard shortcuts for DevTools
+
         document.addEventListener("keydown", function(e) {
-            if (e.key === "F12" || 
+            if (
+                e.key === "F12" ||
                 (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
-                (e.ctrlKey && e.key === "U")) {
+                (e.ctrlKey && e.key === "U")
+            ) {
                 e.preventDefault();
             }
         });
-        
-        // Detect DevTools open
-        setInterval(function() {
-            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
-                alert("Developer tools are disabled!");
-                window.location.reload();
-            }
-        }, 1000);
+
+        // DevTools Detection - Attempt to close tab
+        (function() {
+            let devtoolsOpen = false;
+            const element = new Image();
+
+            Object.defineProperty(element, 'id', {
+                get: function () {
+                    devtoolsOpen = true;
+                    throw new Error("DevTools detected");
+                }
+            });
+
+            setInterval(function () {
+                devtoolsOpen = false;
+                console.dir(element);
+                if (devtoolsOpen) {
+                    alert("Developer tools are not allowed!");
+                    window.open('', '_self').close(); // Attempts to close the tab
+                }
+            }, 1000);
+        })();
     </script>
 
     <!--Adsterra-->
