@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CineArena.live</title>
+    <link rel="shortcut icon" href="favicon.png">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+        }
+        /* Menu Styling */
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            
+            width: 100%;
+            z-index: 10;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        /* Neon Glow Effect */
+        .menu a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(0, 255, 255, 0.7);
+            animation: neon-border 3s infinite alternate;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        @keyframes neon-border {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 1), 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6);
+                background-color: rgba(0, 255, 255, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
+                background-color: rgba(255, 0, 255, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 0, 1), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.6);
+                background-color: rgba(255, 255, 0, 0.7);
+            }
+        }
+        
+        .file-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 10px;
+        }
+        .directory-item, .file-item {
+            margin: 10px;
+            text-align: center;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform .3s ease, box-shadow .3s ease;
+            background-color: #1a1a1a;
+            padding: 10px;
+            width: calc(14.28% - 20px);
+            box-sizing: border-box;
+        }
+        .directory-item img, .file-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: transform .3s ease;
+        }
+        .directory-item a, .file-item a {
+            text-decoration: none;
+            color: #00bfff;
+            font-weight: 700;
+            display: block;
+            margin-top: 5px;
+            transition: color .3s ease;
+        }
+        .directory-item:hover, .file-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, .3);
+        }
+        .directory-item img:hover, .file-item img:hover {
+            transform: scale(1.1);
+        }
+        .directory-item a:hover, .file-item a:hover {
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+        .telegram-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #0088cc;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .telegram-toggle:hover {
+            background-color: #006699;
+        }
+        @media (max-width: 1024px) {
+            .directory-item, .file-item {
+                width: calc(25% - 20px);
+            }
+        }
+        @media (max-width: 768px) {
+            .directory-item, .file-item {
+                width: calc(33.333% - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .directory-item, .file-item {
+                width: calc(50% - 20px);
+                margin: 5px;
+                padding: 5px;
+            }
+            .telegram-toggle {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .sticky-footer {
+           position: fixed;
+           bottom: 0;
+           width: 100%;
+           background: #fff;
+           color: white;
+           text-align: center;
+           padding: 0px;
+        }
+        
+    </style>
+    
+</head>
+
+    
+<body>
+    <a href="https://t.me/cric_stream" class="telegram-toggle">Join Telegram</a>
+    <h1>CineArena.live</h1>
+    <div class="file-container">
+
+        <!-- Menu Section -->
+    <div class="menu">
+        <a href="https://cinearena.live">Sports</a>
+        <a href="https://cinearena.github.io/music/">Music</a>
+        <a href="https://cinearena.live/movies">Movies</a>
+    </div>
+   
+        
+        <div class='directory-item'>
+            <a href='ptv.html'><img src='iplhindi.jpg' alt='IPL Hindi'></a>
+            <a href='ptv.html'>IPL Hindi</a></div>
+        
+        <div class='directory-item'>
+            <a href='asports.html'><img src='ipleng.jpg' alt='IPL English'></a>
+            <a href='asports.html'>IPL English</a></div>
+        
+        <div class='directory-item'>
+            <a href='tnt1.html'><img src='ipltamil.jpg' alt='IPL Tamil'></a>
+            <a href='tnt1.html'>IPL Tamli</a></div>
+
+	<div class='directory-item'>
+            <a href='tnt1.html'><img src='ipltelgu.jpg' alt='IPL Telugu'></a>
+            <a href='tnt1.html'>IPL Telugu</a></div>
+
+	<div class='directory-item'>
+            <a href='tnt1.html'><img src='star1hindi.jpg' alt='Star Sports 1'></a>
+            <a href='tnt1.html'>Star Sports 1 Hindi</a></div>
+
+	<div class='directory-item'>
+            <a href='tnt1.html'><img src='star2hindi.jpg' alt='Star Sports 2'></a>
+            <a href='tnt1.html'>Star Sports 2 Hindi</a></div>
+
+	<div class='directory-item'>
+            <a href='tnt1.html'><img src='tsports.jpg' alt='T Sports'></a>
+            <a href='tnt1.html'>T Sports</a></div>
+        
+      
+           </div>
+
+	
+        <br>
+	<br>
+	<br>
+
+    <script>
+        // Disable right-click
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+        
+        // Disable keyboard shortcuts for DevTools
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")) {
+                e.preventDefault();
+            }
+        });
+        
+        // Detect DevTools open
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                alert("Developer tools are disabled!");
+                window.location.reload();
+            }
+        }, 1000);
+    </script>
+
+    <!--Adsterra-->
+    
+    <div class="sticky-footer">
+    
+    
+    </div>
+
+    <br>
+	<br>
+	<br>
+
+
+
+</body>
+  </html>
