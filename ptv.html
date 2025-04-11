@@ -35,6 +35,47 @@
     <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
 </head>
 <body>
+
+	<script>
+        // Disable right-click and hotkeys
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener("keydown", function(e) {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")
+            ) {
+                e.preventDefault();
+            }
+        });
+
+        // DevTools Detection - Attempt to close tab
+        (function() {
+            let devtoolsOpen = false;
+            const element = new Image();
+
+            Object.defineProperty(element, 'id', {
+                get: function () {
+                    devtoolsOpen = true;
+                    throw new Error("DevTools detected");
+                }
+            });
+
+            setInterval(function () {
+                devtoolsOpen = false;
+                console.dir(element);
+                if (devtoolsOpen) {
+                    alert("Developer tools are not allowed!");
+                    window.open('', '_self').close(); // Attempts to close the tab
+                }
+            }, 1000);
+        })();
+	</script>
+
+	
     <div id="jwplayerDiv"></div>
    <script>
     // Function to get URL query parameters
