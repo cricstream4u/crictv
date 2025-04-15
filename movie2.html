@@ -248,11 +248,18 @@
         });
 
         // Real-Time Search
-        document.getElementById('search').addEventListener('input', function() {
+        
+        document.getElementById('search').addEventListener('input', function () {
             let searchValue = this.value.toLowerCase();
-            document.querySelectorAll('.channel-card').forEach(card => {
-                let name = card.querySelector('p').textContent.toLowerCase();
-                card.style.display = name.includes(searchValue) ? "block" : "none";
+            let movies = document.querySelectorAll('.movie-card');
+
+            movies.forEach(movie => {
+                let title = movie.getAttribute('data-title').toLowerCase();
+                if (title.includes(searchValue)) {
+                    movie.style.display = "flex";
+                } else {
+                    movie.style.display = "none";
+                }
             });
         });
     </script>
