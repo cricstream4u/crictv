@@ -11,6 +11,90 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
 
+	* {box-sizing: border-box;}
+	body {font-family: Verdana, sans-serif; margin: 0; padding: 0;}
+	.mySlides {display: none; position: relative;}
+	img {vertical-align: middle; width: 100%; height: auto;}
+	 
+	/* Slideshow container */
+	.slideshow-container {
+	  max-width: 1000px;
+	  position: relative;
+	  margin: auto;
+	}
+	 
+	/* Caption text */
+	.text {
+	  color: #ffffff;
+	  font-size: 18px;
+	  padding: 8px 12px;
+	  position: absolute;
+	  bottom: 50px;
+	  width: 100%;
+	  text-align: center;
+	}
+	 
+	/* Number text */
+	.numbertext {
+	  color: #ffffff;
+	  font-size: 14px;
+	  padding: 8px 12px;
+	  position: absolute;
+	  top: 0;
+	}
+	 
+	/* Dots */
+	.dot-container {
+	  text-align: center;
+	  padding: 10px;
+	}
+	.dot {
+	  height: 12px;
+	  width: 12px;
+	  margin: 0 2px;
+	  background-color: #bbb;
+	  border-radius: 50%;
+	  display: inline-block;
+	  transition: background-color 0.6s ease;
+	}
+	.active {
+	  background-color: #717171;
+	}
+	 
+	/* Fading animation */
+	.fade {
+	  animation-name: fade;
+	  animation-duration: 1.5s;
+	}
+	@keyframes fade {
+	  from {opacity: .4} 
+	  to {opacity: 1}
+	}
+	 
+	/* Button Styling */
+	.button-container {
+	  position: absolute;
+	  bottom: 20px;
+	  width: 100%;
+	  text-align: center;
+	}
+	.watch-button {
+	  display: inline-block;
+	  padding: 12px 24px;
+	  font-size: 18px;
+	  color: white;
+	  background-color: #ff4500;
+	  border: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+	  text-decoration: none;
+	  font-weight: bold;
+	  transition: background 0.3s;
+	}
+	.watch-button:hover {
+	  background-color: #d63b00;
+	}
+
 	.sticky-footer {
            position: fixed;
            bottom: 0;
@@ -37,32 +121,69 @@
     </div>
 
     <!-- Channel Grid -->
-    <div id="channel-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
-        
-        <a href="https://cricstream4u.github.io/fancode/" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
-            <img src="fancode.jpg" alt="Fancode" class="w-20 h-20 mx-auto">
-            <p class="mt-2 font-semibold">Fancode</p>
-        </a>
-        
-        <a href="ptv2.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
-            <img src="ptv1.jpg" alt="PTV Sports" class="w-20 h-20 mx-auto">
-            <p class="mt-2 font-semibold">PTV Sports</p>
-        </a>
-        
-        
-        <a href="tencricket.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
-            <img src="tencricket.jpg" alt="TEN Cricket" class="w-20 h-20 mx-auto">
-            <p class="mt-2 font-semibold">TEN Cricket</p>
-        </a>
+    <h2 style="text-align:center"></h2>
+ 
+<div class="slideshow-container">
 
-	<a href="willowsports.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
-            <img src="willowsports.jpg" alt="Willow Sports" class="w-20 h-20 mx-auto">
-            <p class="mt-2 font-semibold">Willow Sports</p>
-	</a>
-        
-        
-        
+  <!-- Slide 2 (TATA IPL 2025) -->
+  <div class="mySlides fade">
+    <div class="numbertext"></div>
+    <img src="iplslider.jpg" alt="Slide 1">
+    <div class="button-container">
+      <a href=""https://cinearena.live/ipl" class="watch-button">Watch Now</a>
     </div>
+  </div>
+ 
+  <!-- Slide 1 (HBL PSL 10 2025) -->
+  <div class="mySlides fade">
+    <div class="numbertext"></div>
+    <img src="pslslider.jpg" alt="Slide 2">
+    <div class="button-container">
+      <a href=""https://cinearena.live/psl" class="watch-button">Watch Now</a>
+    </div>
+  </div>
+ 
+  <!-- Slide 3 (New Slide)
+  <div class="mySlides fade">
+    <div class="numbertext"></div>
+    <img src="https://cdn.shopify.com/s/files/1/0684/1643/8455/files/images_8.jpg?v=1743972237" alt="Slide 3">
+    <div class="button-container">
+      <a href="https://cinearena.live/psl" class="watch-button">Watch Now</a>
+    </div>
+  </div>
+  -->
+ 
+</div>
+ 
+<!-- Dots -->
+<div class="dot-container">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+<!--  <span class="dot"></span>  New dot for Slide 3 -->
+</div>
+ 
+<script>
+let slideIndex = 0;
+showSlides();
+ 
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 2000); // ہر 2 سیکنڈ بعد سلائیڈ بدلے گا
+}
+</script>
+ 
 
     <!-- Footer 
     <footer class="p-4 bg-gray-800 text-white text-center mt-8" style="position: fixed; left:0; bottom:0; width:100%; ">
