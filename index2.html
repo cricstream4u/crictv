@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <meta name="keywords" content="video, streaming, cine arena, cine-arena, sports">
+    <meta name="description" content="Cine Arena live streaming - Watch Sports for free.">
+    <title>CineArena.Live</title>
+    <link rel="icon" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Menu Styling */
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            
+            width: 100%;
+            z-index: 10;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        /* Neon Glow Effect */
+        .menu a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(0, 255, 255, 0.7);
+            animation: neon-border 3s infinite alternate;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        @keyframes neon-border {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 1), 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6);
+                background-color: rgba(0, 255, 255, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
+                background-color: rgba(255, 0, 255, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 0, 1), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.6);
+                background-color: rgba(255, 255, 0, 0.7);
+            }
+        }
+      
+	    .sticky-footer {
+           position: fixed;
+           bottom: 0;
+           width: 100%;
+           background: #fff;
+           color: white;
+           text-align: center;
+           padding: 0px;
+	    }
+      
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 transition-all">
+
+    <!-- Header -->
+    <header class="p-4 bg-blue-900 text-white text-center text-2xl font-bold">
+        <a href="https://cinearena.live/"><img src="cineheader.png" class="h-10 md:h-10 lg:h-10 mx-auto"></a>
+    </header>
+  <!-- Menu Section -->
+    <div class="menu">
+        <a href="https://cinearena.live">Sports</a>
+        <a href="https://cinearena.live/music">Music</a>
+        <a href="https://cinearena.live/movies">Movies</a>
+       <a href="https://cinearena.live/movies">Sports</a>
+    </div>
+   
+
+    <!-- Search & Dark Mode Toggle -->
+    <div class="flex justify-center items-center p-4 gap-4">
+        <input type="search" id="search" placeholder="Search Channels..." 
+               class="px-4 py-2 rounded border border-gray-400 text-black focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <button id="theme-toggle" class="px-4 py-2 bg-gray-100 text-black rounded border border-gray-400">🌙</button>
+    </div>
+
+    <!-- Channel Grid -->
+    <div id="channel-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
+<!--
+        <a href="https://cricstream4u.github.io/ipl-hindi2/" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="iplhin.jpg" alt="Hindi" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Hindi 1</p>
+	</a>
+	    -->
+        <a href="https://cricstream4u.github.io/ipl-iframe/" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="iplhin.jpg" alt="Hindi" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Hindi </p>
+        </a>
+        
+        <a href="https://cricstream4u.github.io/tsports-iframe" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="ipleng.jpg" alt="English" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">English</p>
+        </a>
+        
+        <!--
+        <a href="ipltamil.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="tamil.jpg" alt="Tamil" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Tamil</p>
+        </a>
+
+	<a href="ipltelgu.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="telgu.jpg" alt="Telugu" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Telugu</p>
+	</a>
+
+	<a href="iplhin.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="star1hd.jpg" alt="Star Sports1 Hindi" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Star Sports1 Hindi</p>
+	</a>
+	    
+
+	
+	<a href="starsports2hindi.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="star2.jpg" alt="Star Sports2 Hindi" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Star Sports2 Hindi</p>
+	</a>
+	    -->
+	<a href="astrocricket.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="astrocricket.jpg" alt="Astro Cricket" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Astro Cricket</p>
+	</a>
+
+	<a href="willowbycricbuzz.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="willowbycricbuzz.jpg" alt="Willow by Cricbuzz" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Willow by Cricbuzz</p>
+	</a>
+
+	<a href="skysportscricket.html" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="skysportscricket.jpg" alt="Sky Sports Cricket" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">Sky Sports Cricket</p>
+	</a>
+
+	<a href="https://cricstream4u.github.io/tsports-iframe" class="channel-card block p-4 border border-gray-200 rounded shadow text-center transition-all">
+            <img src="tsports.jpg" alt="T Sports" class="w-20 h-20 mx-auto">
+            <p class="mt-2 font-semibold">T-Sports</p>
+	</a>
+        
+        
+        
+    </div>
+
+    <!-- Footer 
+    <footer class="p-4 bg-gray-800 text-white text-center mt-8" style="position: fixed; left:0; bottom:0; width:100%; ">
+        2025 CineArena.live All rights reserved.
+    </footer>
+	-->
+
+    <script>
+        // Dark Mode Toggle with Local Storage
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+        const cards = document.querySelectorAll('.channel-card');
+
+        function applyDarkMode(enable) {
+            if (enable) {
+                body.classList.add('dark');
+                body.classList.replace('bg-gray-100', 'bg-gray-900');
+                body.classList.replace('text-gray-900', 'text-gray-200');
+                cards.forEach(card => {
+                    card.classList.replace('bg-white', 'bg-gray-800');
+                    card.classList.replace('text-gray-900', 'text-gray-200');
+                });
+                toggleButton.textContent = "☀️";
+                localStorage.setItem('dark-mode', 'enabled');
+            } else {
+                body.classList.remove('dark');
+                body.classList.replace('bg-gray-900', 'bg-gray-100');
+                body.classList.replace('text-gray-200', 'text-gray-900');
+                cards.forEach(card => {
+                    card.classList.replace('bg-gray-800', 'bg-white');
+                    card.classList.replace('text-gray-200', 'text-gray-900');
+                });
+                toggleButton.textContent = "🌙";
+                localStorage.setItem('dark-mode', 'disabled');
+            }
+        }
+
+        // Load theme from localStorage
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            applyDarkMode(true);
+        }
+
+        toggleButton.addEventListener('click', () => {
+            applyDarkMode(!body.classList.contains('dark'));
+        });
+
+        // Real-Time Search
+        document.getElementById('search').addEventListener('input', function() {
+            let searchValue = this.value.toLowerCase();
+            document.querySelectorAll('.channel-card').forEach(card => {
+                let name = card.querySelector('p').textContent.toLowerCase();
+                card.style.display = name.includes(searchValue) ? "block" : "none";
+            });
+        });
+    </script>
+
+
+	<!--Adsterra-->
+    
+    <div class="sticky-footer">
+	<center>   
+    <script type="text/javascript">
+	atOptions = {
+		'key' : '86d595490b53de20542964b56ca467e7',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//carryglanced.com/86d595490b53de20542964b56ca467e7/invoke.js"></script>
+	</center>     
+    </div>
+
+	<br><br><br><br><br><br>
+
+</body>
+</html>
